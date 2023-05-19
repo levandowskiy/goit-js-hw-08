@@ -11,8 +11,8 @@ form.addEventListener("submit", submitForm)
 
 function handlerForm() {
     const formData = {
-        email: input.value,
-        message: textArea.value,
+        email: input.value.trim(),
+        message: textArea.value.trim(),
     }
     
     localStorage.setItem("feedback-form-state", JSON.stringify(formData));
@@ -31,6 +31,10 @@ function restoreFormData() {
 function submitForm(evt) {
     evt.preventDefault();
 
+    if(!validateForm()){
+        return
+    }
+   
     const formData = handlerForm();
     console.log(formData);
 
@@ -41,4 +45,14 @@ function clearFormData() {
     input.value = "";
     textArea.value = "";
     localStorage.removeItem("feedback-form-state");
+}
+
+function validateForm(){
+    const areFieldsEmpty = input.value.trim() === "" || textArea.value.trim() === "";
+
+    if(areFieldsEmpty){
+        alert("Будь ласка, заповніть всі поля форми")
+        return false;
+    }
+    return true;
 }

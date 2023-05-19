@@ -14,5 +14,6 @@ function handleTimeUpdate(event) {
 
 const time = localStorage.getItem("videoplayer-current-time");
 
-player.setCurrentTime(time);
-console.log("f");
+if(time) {
+    player.setCurrentTime(time);
+}
